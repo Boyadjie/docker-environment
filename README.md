@@ -66,6 +66,9 @@ Note that after a few moment the container `front` will stop because it's only h
 You should now be able to see the app at the address : <a href="http://localhost:8080">http://localhost:8080</a>
 And you can check the state of your database following : <a href="http://localhost:8081">http://localhost:8081</a>
 
+### How to fill the database
+When you run the app by default you may not have any rules. To add one you can simply build the project with ```docker compose up -d``` and go to <a href="http://localhost:8080">http://localhost:8080</a>. Then click on `new` and add your rule, it will be pushed to the database and redirect you to the home page.
+
 ### Changes made on the Backend API and Frontend app
 The default project was working with a json, so i had to update my routes to make them interact with the mongo db instead.
 I also had to update my app after the migration because some stuff had changed like return values and urls.
