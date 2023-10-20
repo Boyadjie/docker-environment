@@ -1,0 +1,13 @@
+# Uses the node:latest image as roots for our custom image
+FROM node
+
+# Create a folder and move inside it
+ENV APP_FRONT=/home/app/front
+WORKDIR $APP_FRONT
+
+# Copy the content of the app in the folder created earlyer
+COPY . $APP_FRONT
+
+# Install the dependencies and run the npm commmand "build" specified on the package.json file
+RUN npm install
+CMD ["npm", "run", "build"]

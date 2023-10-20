@@ -1,0 +1,75 @@
+services:
+  # Build our nginx container
+  nginx:
+    container_name: nginx
+    image: nginx # It uses the nginx image (no version specified, so it's the :latest by default)
+    # This container will only be built completely after the frontend and backend are done
+    depends_on:
+      - frontend
+      - backend
+    # We share 2 folders between our local files and our container files
+    volumes:
+      - ./golden-rules/build:/var/www/ # This folder shares the build of our frontend app to our nginx container via our local folders
+      - ./nginx:/etc/nginx/conf.d # This one contains the override of the nginx configuration
+    ports:
+      - "8080:80" # We expose the port 8080 on our computer and the 80 on the container
+    environment:
+      - NGINX_PORT=80 # We set an environment variable of the port
+    networks:
+      - react-express # This container is a part of the react-express network and can only interact with the containers within it
+
+  # Build our frontend container
+  frontend:
+    container_name: front
+    build:
+      context: golden-rules # This build our custom image from a Dockerfile on the folder /golden-rules
+    volumes:
+      - ./golden-rules/build:/home/app/front/build # This shares the build of the app to our local folders so that it can be used by the nginx container
+    networks:
+      - react-express
+
+  # Build our backend container
+  backend:
+    container_name: back
+    build:
+      context: golden-rules-server # This build our custom image from a Dockerfile on the folder /golden-rules-server
+    restart: always # This tell the container to always restart if it stops
+    volumes:
+      - ./golden-rules-server:/home/app/back/ # We share the server app folder to be able to work with it
+    depends_on:
+      - mongo # It will wait the mongo container to build
+    networks: # This container needs to be on both networks because of the reverse proxy and the database
+      - express-mongo
+      - react-express
+    expose:
+      - 3000 # We only expose it's port 3000 on the docker environment. It will only be used by the nginx container for the reverse proxy
+
+  # Build our mongodb container
+  mongo:
+    container_name: mongodb
+    restart: always # We want it to always be alive
+    image: mongo:4.2.0 # It uses the image of mongodb version 4.2.0
+    volumes:
+      - ./data:/data/db # We share the database configuration
+    networks:
+      - express-mongo
+    expose:
+      - 27017 # We only expose it's port 27017 on the docker environment.
+
+  # Build our mongo-express container
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081 # We expose the port 8081 of out computer so that we can check this app on our navigator
+    environment: # By defaults, the mongo db and mongo-express can not require a user and password, but I needed them so, I've set these two environment variables.
+      ME_CONFIG_BASICAUTH_USERNAME: user
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+networks: # Define our networks
+  react-express:
+  express-mongo:

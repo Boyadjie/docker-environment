@@ -1,0 +1,15 @@
+# Uses the node:latest image as roots for our custom image
+FROM node
+
+# Create a folder and move inside it
+ENV APP_BACK=/home/app/back
+WORKDIR $APP_BACK
+
+# Copy the content of the app in the folder created earlyer
+COPY . $APP_BACK
+
+# Install the dependencies
+RUN npm install
+
+# Start the server
+CMD ["node", "index.js"]
