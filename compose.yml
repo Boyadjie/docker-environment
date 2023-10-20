@@ -53,6 +53,8 @@ services:
       - ./data:/data/db # We share the database configuration
     networks:
       - express-mongo
+    environment:
+      MONGO_INITDB_DATABASE: rules
     expose:
       - 27017 # We only expose it's port 27017 on the docker environment.
 
