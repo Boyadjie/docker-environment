@@ -1,6 +1,6 @@
-## Back-end :
+# Golden Rules
 
-https://github.com/Boyadjie/goldenRules-server
+Golden rules app in React that works with an api in nodejs express.
 
 ## Available Scripts
 
