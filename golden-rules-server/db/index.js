@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const {Rule} = require("../models/rule");
 
 exports.connect = (app) => {
     // Specific options for the connection
@@ -24,15 +23,6 @@ exports.connect = (app) => {
                 console.log("MongoDB connection unsuccessful, retry after 2 seconds.", err);
                 setTimeout(connectWithRetry, 2000); // retry to connect, if it fails, after 2 seconds
             });
-
-        const data = new Rule({
-            title: 'Init db',
-            description: "This rule is only here to init the database, you may want to delete it",
-            likes: 0,
-            dislikes: 0,
-        })
-
-        data.save()
     };
     connectWithRetry();
 };

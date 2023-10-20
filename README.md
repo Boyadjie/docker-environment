@@ -66,6 +66,13 @@ Note that after a few moment the container `front` will stop because it's only h
 You should now be able to see the app at the address : <a href="http://localhost:8080">http://localhost:8080</a>
 And you can check the state of your database following : <a href="http://localhost:8081">http://localhost:8081</a>
 
+### ⚠️ You will need to create the database named `rules`
+To do that go to <a href="http://localhost:8081">http://localhost:8081</a> and create the database with the button on the top-right corner.
+
+You may need to run again `docker compose up -d --build`
+
+After that you sould be good to go !
+
 ### How to fill the database
 When you run the app by default you may not have any rules. To add one you can simply build the project with ```docker compose up -d``` and go to <a href="http://localhost:8080">http://localhost:8080</a>. Then click on `new` and add your rule, it will be pushed to the database and redirect you to the home page.
 
