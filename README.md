@@ -68,6 +68,8 @@ And you can check the state of your database following : <a href="http://localho
 
 ### ⚠️ You will need to create the database named `rules`
 To do that go to <a href="http://localhost:8081">http://localhost:8081</a> and create the database with the button on the top-right corner.
+<img width="874" alt="Screenshot 2023-10-20 at 19 58 44" src="https://github.com/Boyadjie/docker-environment/assets/72607059/37cb3f26-80a8-4f71-b18e-b5e342a8f07a">
+
 
 You may need to run again `docker compose up -d --build`
 
