@@ -90,3 +90,6 @@ I also had to update my app after the migration because some stuff had changed l
 - Create data model
 - Update api routes with mongoose methods
 - Update front to manage the mongodb migration
+
+One thing that i understood about mongo db is that it doesn't create your database on the login but when you add an entry to it and will name the db after the plural of the model for the data you created.
+That's why i added a section to create the db manually because even after testing multiple times myself i was not sure if it was working because i had cache on my docker or if it was ready to go. 
