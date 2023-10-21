@@ -36,6 +36,7 @@ services:
     restart: always # This tell the container to always restart if it stops
     volumes:
       - ./golden-rules-server:/home/app/back/ # We share the server app folder to be able to work with it
+      - /home/app/back/node_modules
     depends_on:
       - mongo # It will wait the mongo container to build
     networks: # This container needs to be on both networks because of the reverse proxy and the database
