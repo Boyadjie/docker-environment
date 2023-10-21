@@ -7,6 +7,17 @@ import { ThemeContext } from "../../ThemeContext";
 
 const StyledRuleList = styled.div`
   &.light {
+    > p {
+      color: #2d2d2d;
+      text-align: center;
+      margin-top: 10rem;
+      font-size: 2rem;
+      
+      a {
+        color: #2d2d2d;
+      }
+    }
+    
     > div {
       margin: 0 auto;
 
@@ -20,6 +31,17 @@ const StyledRuleList = styled.div`
   }
 
   &.dark {
+    > p {
+      color: white;
+      text-align: center;
+      margin-top: 10rem;
+      font-size: 2rem;
+
+      a {
+        color: white;
+      }
+    }
+    
     > div {
       margin: 0 auto;
 
@@ -58,7 +80,15 @@ const RuleList = ({ rules, setRules }) => {
     }
   };
 
-  return rules.length !== 0 ? (
+  if(rules.length === 0) {
+    return (
+        <StyledRuleList className={theme}>
+          <p>No rules found... <a href="/new">Create a new rule</a></p>
+        </StyledRuleList>
+    )
+  }
+
+  return rules.length > 0 ? (
     <StyledRuleList className={theme}>
       <div>
         {rules.map((rule, id) => (
